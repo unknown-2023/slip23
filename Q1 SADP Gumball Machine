@@ -1,0 +1,70 @@
+Write a Java Program to implement State Pattern for Gumball Machine. Createinstance variable that holds current state from there, we just need to handle all 
+actions, behaviors and state transition that can happen 
+
+interface State
+{ 
+    public void doAction (Context context);
+} 
+//Create concrete classes implementing the same interface.
+
+class LoadGumball implements State
+{
+    public void doAction (Context context)
+    {
+        System.out.println("Loading Gumballs"); 
+        context.setState(this);
+    }
+    public String toString()
+    {
+        return "Gumball loading complete...ready to fire";
+    }
+}
+class UseGumballs implements State
+{
+    public void doAction(Context context)
+    {
+        System.out.println("Do you want gumballs?...Get is from here"); 
+        context.setState(this);
+    }  
+    public String toString()
+    {
+        return "how's It?";
+    }   
+}
+class Context
+{
+    private State state;
+    public Context ()
+    {
+        state = null;
+    }
+    public void setState(State state)
+    {
+        this.state=state;
+    }
+    public State getState()
+    {
+        return state;
+    }
+}
+
+class Slip8
+{
+    public static void main(String args[])
+    {
+        Context context = new Context(); 
+        LoadGumball firststate = new LoadGumball(); 
+        firststate.doAction (context); 
+        System.out.println(context.getState().toString()); 
+        UseGumballs secondstate=new UseGumballs(); 
+        secondstate.doAction (context); 
+        System.out.println(context.getState().toString());   
+    }
+}
+---------------------------------------------------------------------------------------------------
+Output
+ * PS I:\My Drive\NRClasses\MCS\Sem 3\SADP\SADPSlipSolutions> java Slip8  
+Loading Gumballs
+Gumball loading complete...ready to fire
+Do you want gumballs?...Get is from here
+how's It?
